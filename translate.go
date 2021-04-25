@@ -7,6 +7,7 @@ import (
 
 	"github.com/a-berahman/pc-offline-challenge/common"
 	"github.com/a-berahman/pc-offline-challenge/repository"
+	"github.com/avast/retry-go"
 	"golang.org/x/text/language"
 )
 
@@ -16,7 +17,7 @@ type Translate struct {
 	cache      repository.Cacher
 }
 
-// New returns new instance of Translate service
+// NewTranslate returns new instance of Translate service
 func NewTranslate() *Translate {
 	t := newRandomTranslator(
 		100*time.Millisecond,
@@ -35,7 +36,7 @@ func (t *Translate) Translate(ctx context.Context, from, to language.Tag, data s
 		return cacheRes, nil
 	}
 	//otherwise, it sends request to 3rd party
-	res, err := t.translator.Translate(ctx, from, to, data)
+	res, err := t.doTranslate(ctx, from, to, data)
 	if err != nil {
 		return "", err
 	}
@@ -44,4 +45,21 @@ func (t *Translate) Translate(ctx context.Context, from, to language.Tag, data s
 
 	return res, nil
 
+}
+func (t *Translate) doTranslate(ctx context.Context, from, to language.Tag, data string) (string, error) {
+	var res string
+	errR := retry.Do(
+		func() error {
+			var err error
+			res, err = t.translator.Translate(ctx, from, to, data)
+			if err != nil {
+				return err
+			}
+			return nil
+		},
+	)
+	if errR != nil {
+		return res, errR
+	}
+	return res, nil
 }

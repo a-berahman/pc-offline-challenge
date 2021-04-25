@@ -5,6 +5,7 @@ type Service struct {
 	translator Translator
 }
 
+// NewService returns new instance of service
 func NewService() *Service {
 
 	return &Service{
