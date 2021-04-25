@@ -1,4 +1,4 @@
-module github.com/pailcamper/pc-offline-challenge
+module github.com/a-berahman/pc-offline-challenge
 
 go 1.12
 

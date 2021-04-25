@@ -6,12 +6,15 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/a-berahman/pc-offline-challenge/common"
+	"github.com/a-berahman/pc-offline-challenge/services"
 	"golang.org/x/text/language"
 )
 
 func main() {
 	ctx := context.Background()
 	rand.Seed(time.Now().UTC().UnixNano())
-	s := NewService()
-	fmt.Println(s.translator.Translate(ctx, language.English, language.Japanese, "test"))
+	translerSerivce := services.GetService(ctx, common.TranlatorService).(services.Translator)
+
+	fmt.Println(translerSerivce.Translate(language.English, language.Japanese, "test"))
 }
