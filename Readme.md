@@ -1,5 +1,5 @@
 # PaulCamper offline challenge
-[![Build Status](https://travis-ci.com/a-berahman/pc-offline-challenge.svg?branch=master)](https://travis-ci.com/a-berahman/pc-offline-challenge)
+[![Build Status](https://travis-ci.com/a-berahman/pc-offline-challenge.svg?branch=master)](https://travis-ci.com/a-berahman/pc-offline-challenge) [![Go Report Card](https://goreportcard.com/badge/github.com/a-berahman/pc-offline-challenge)](https://goreportcard.com/report/github.com/a-berahman/pc-offline-challenge)
 ## Application process
 
 To apply you solution in the most suitable way please use following process:
